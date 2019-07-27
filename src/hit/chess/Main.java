@@ -8,6 +8,7 @@ public class Main {
     }
 
     public static void run () {
+        System.out.println("Please Input GameType:(chess or go)");
         Scanner sc = new Scanner(System.in);
         String gameType = sc.next();
         String INVALID_INPUT = "Invalid input";
@@ -16,6 +17,7 @@ public class Main {
             case "chess":
                 break;
             case "go":
+                GoGame.playChess();
                 break;
                 default:
                     System.out.println(INVALID_INPUT);
