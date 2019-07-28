@@ -6,7 +6,7 @@ import javax.swing.*;
      棋盘
  */
 
-public class Board extends JPanel {
+public class Board extends JPanel implements Cloneable {
     //棋盘大小
     private int boardSize;
 

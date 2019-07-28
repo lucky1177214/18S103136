@@ -6,35 +6,24 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class GoGame extends JFrame{
+public class GoGame extends Game{
 
     public static  void playChess()
     {
-
-        JFrame f = new JFrame();
-        f.setTitle("Go Chess");
-//        File file = new File("ico.png");
-//        Image ico = null;
-//        try{
-//            ico = ImageIO.read(file);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }finally {
-//            if(ico==null)
-//                System.out.print("ico read error");  //Debug flag 2018.12.19 7pm
-//        }
-//        f.setIconImage(ico);
-        JPanel container = new JPanel();
-        container.setBackground(Color.BLACK);
-        container.setLayout(new BorderLayout());
-        f.add(container);
-        container.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+        JFrame jFrame = new JFrame();
+        //设置标题
+        jFrame.setTitle("Go Chess");
+        JPanel jPanel = new JPanel();
+        jPanel.setBackground(Color.BLACK);
+        jPanel.setLayout(new BorderLayout());
+        jFrame.add(jPanel);
+        jPanel.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
         GoBoard board = new GoBoard();
-        container.add(board);
-        f.pack();
-        f.setResizable(false); //移动会导致坐标失去有效性
-        f.setLocationByPlatform(true);
-        f.setVisible(true);
-        f.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        jPanel.add(board);
+        jFrame.pack();
+        jFrame.setResizable(false);
+        jFrame.setLocationByPlatform(true);
+        jFrame.setVisible(true);
+        jFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }
 }

@@ -1,28 +1,12 @@
 package hit.chess.adt;
 
+import hit.chess.chess.ChessBoard;
+
+import java.util.ArrayList;
+
 /*
     棋子
  */
-public class Piece {
-    //棋子种类
-    private String pieceType;
+public abstract class Piece implements Cloneable{
 
-    //棋子数量
-    private int pieceNumber;
-
-    public String getPieceType() {
-        return pieceType;
-    }
-
-    public void setPieceType(String pieceType) {
-        this.pieceType = pieceType;
-    }
-
-    public int getPieceNumber() {
-        return pieceNumber;
-    }
-
-    public void setPieceNumber(int pieceNumber) {
-        this.pieceNumber = pieceNumber;
-    }
 }
