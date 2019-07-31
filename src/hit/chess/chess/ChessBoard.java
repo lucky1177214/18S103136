@@ -1,137 +1,125 @@
 package hit.chess.chess;
 
 import hit.chess.adt.Board;
+import hit.chess.adt.Piece;
+import hit.chess.adt.Player;
+import hit.chess.adt.Position;
 
-import javax.swing.*;
-import java.awt.*;
+import java.util.*;
 
-public class ChessBoard extends Board {
+public class ChessBoard implements Board {
+    List<Piece> player1Pieces = new ArrayList<>();
+    List<Piece> player2Pieces = new ArrayList<>();
+    char[][] positionInfo = new char[8][8];
 
-    private static final long serialVersionUID = 1L;
-    private boolean ispossibledestination;
-    private JLabel content;
-    private ChessPiece piece;
-    int x,y;                             //is public because this is to be accessed by all the other class
-    private boolean isSelected=false;
-    private boolean ischeck=false;
-
-    //Constructors
-    public ChessBoard(int x,int y,ChessPiece p)
-    {
-        this.x=x;
-        this.y=y;
-
-        setLayout(new BorderLayout());
-
-        if((x+y)%2==0)
-            setBackground(new Color(113,198,113));
-
-        else
-            setBackground(Color.white);
-
-        if(p!=null)
-            setPiece(p);
-    }
-
-    //A constructor that takes a cell as argument and returns a new cell will the same data but different reference
-    public ChessBoard(ChessBoard cell) throws CloneNotSupportedException
-    {
-        this.x=cell.x;
-        this.y=cell.y;
-        setLayout(new BorderLayout());
-        if((x+y)%2==0)
-            setBackground(new Color(113,198,113));
-        else
-            setBackground(Color.white);
-        if(cell.getpiece()!=null)
-        {
-            setPiece((ChessPiece) cell.getpiece().getcopy());
+    /**
+     * 象棋棋盘初始化
+     */
+    public ChessBoard(){
+//        for(int i=2;i<5;i++){
+//            for(int j=0;j<8;j++){
+//                positionInfo[i][j]=0;
+//            }
+//        }
+//        for(int i=0;i<2;i++){
+//            for(int j=0;j<8;j++){
+//                positionInfo[i][j] = 1;
+//                positionInfo[7-i][j] = 2;
+//            }
+        positionInfo[6][0] = 'r';
+        positionInfo[6][1] = 'k';
+        positionInfo[6][2] = 'b';
+        positionInfo[6][3] = 'Q';
+        positionInfo[6][4] = 'K';
+        positionInfo[6][5] = 'b';
+        positionInfo[6][6] = 'k';
+        positionInfo[6][7] = 'r';
+        for(int j = 0;j < 8;j++){
+            positionInfo[7][j] = 'p';
         }
-        else
-            piece=null;
+        positionInfo[0][0] = 'r';
+        positionInfo[0][1] = 'k';
+        positionInfo[0][2] = 'b';
+        positionInfo[0][3] = 'Q';
+        positionInfo[0][4] = 'K';
+        positionInfo[0][5] = 'b';
+        positionInfo[0][6] = 'k';
+        positionInfo[0][7] = 'r';
+        for(int j = 0;j < 8;j++){
+            positionInfo[1][j] = 'p';
+        }
+        for(int i = 2;i <= 5;i++){
+            for(int j = 0;j < 8;j++){
+                positionInfo[i][j] = '*';
+            }
+        }
+
+      //  }
+
+        player1Pieces.add(new Piece(0,0,"Rook"));
+        player1Pieces.add(new Piece(0,7,"Rook"));
+        player2Pieces.add(new Piece(7,0,"Rook"));
+        player2Pieces.add(new Piece(7,7,"Rook"));
+        player1Pieces.add(new Piece(0,1,"Knight"));
+        player1Pieces.add(new Piece(0,6,"Knight"));
+        player2Pieces.add(new Piece(7,1,"Knight"));
+        player2Pieces.add(new Piece(7,6,"Knight"));
+        player1Pieces.add(new Piece(0,2,"Bishop"));
+        player1Pieces.add(new Piece(0,5,"Bishop"));
+        player2Pieces.add(new Piece(7,2,"Bishop"));
+        player2Pieces.add(new Piece(7,5,"Bishop"));
+        player1Pieces.add(new Piece(0,3,"Queen"));
+        player2Pieces.add(new Piece(7,3,"Queen"));
+        player1Pieces.add(new Piece(0,4,"King"));
+        player2Pieces.add(new Piece(7,4,"King"));
+        for(int i=0;i<8;i++){
+            player1Pieces.add(new Piece(1,i,"Pawn"));
+            player2Pieces.add(new Piece(6,i,"Pawn"));
+        }
     }
 
-    public void setPiece(ChessPiece p)    //Function to inflate a cell with a piece
-    {
-        piece=p;
-        ImageIcon img=new javax.swing.ImageIcon(this.getClass().getResource(p.getPath()));
-        content=new JLabel(img);
-        this.add(content);
+    @Override
+    public boolean searchPosition(Position position){
+        if(position.getX()>8 || position.getY()>8
+                || position.getY()<0 || position.getX()<0){
+            System.out.println("There is no such position!");
+            return false;
+        }
+        for(Piece p : player1Pieces){
+            if(p.getPosition().equals(position)){
+                System.out.println("The position " + position + " belongs to player1's piece "+p.getName());
+                return true;
+            }
+        }
+        for(Piece p: player2Pieces){
+            if(p.getPosition().equals(position)){
+                System.out.println("The position " + position + " belongs to player2's piece "+p.getName());
+                return true;
+            }
+        }
+
+        System.out.println("There is no pieces in the position "+position);
+        return true;
     }
 
-    public void removePiece()      //Function to remove a piece from the cell
-    {
-//        if (piece instanceof King)
-//        {
-//            piece=null;
-//            this.remove(content);
-//        }
-//        else
-//        {
-//            piece=null;
-//            this.remove(content);
-//        }
+    @Override
+    public int getNumberOfPieces(Player player) {
+        return 0;
+    }
+
+    @Override
+    public int getBriefInfo(int x, int y) {
+        return 0;
     }
 
 
-    public ChessPiece getpiece()    //Function to access piece of a particular cell
-    {
-        return this.piece;
+    @Override
+    public void printBoard(){
+        for(int i=7;i>=0;i--){
+            for(int j=0;j<8;j++){
+                System.out.print(positionInfo[i][j]+" ");
+            }
+            System.out.println();
+        }
     }
-
-    public void select()       //Function to mark a cell indicating it's selection
-    {
-        this.setBorder(BorderFactory.createLineBorder(Color.red,6));
-        this.isSelected=true;
-    }
-
-    public boolean isselected()   //Function to return if the cell is under selection
-    {
-        return this.isSelected;
-    }
-
-    public void deselect()      //Function to delselect the cell
-    {
-        this.setBorder(null);
-        this.isSelected=false;
-    }
-
-    public void setpossibledestination()     //Function to highlight a cell to indicate that it is a possible valid move
-    {
-        this.setBorder(BorderFactory.createLineBorder(Color.blue,4));
-        this.ispossibledestination=true;
-    }
-
-    public void removepossibledestination()      //Remove the cell from the list of possible moves
-    {
-        this.setBorder(null);
-        this.ispossibledestination=false;
-    }
-
-    public boolean ispossibledestination()    //Function to check if the cell is a possible destination
-    {
-        return this.ispossibledestination;
-    }
-
-    public void setcheck()     //Function to highlight the current cell as checked (For King)
-    {
-        this.setBackground(Color.RED);
-        this.ischeck=true;
-    }
-
-    public void removecheck()   //Function to deselect check
-    {
-        this.setBorder(null);
-        if((x+y)%2==0)
-            setBackground(new Color(113,198,113));
-        else
-            setBackground(Color.white);
-        this.ischeck=false;
-    }
-
-    public boolean ischeck()    //Function to check if the current cell is in check
-    {
-        return ischeck;
-    }
-
 }

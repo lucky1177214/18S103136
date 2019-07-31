@@ -1,7 +1,10 @@
 package hit.chess.adt;
 
-/*
-     下棋动作
- */
-public class Action {
+public interface Action {
+    //public boolean removeIsLegal(Player player,Position position,Board board);
+
+    //public boolean moveIsLegal(Player player,Position position,Board board);
+
+    //public boolean remove(Player player,Piece piece,Board board);
+
 }

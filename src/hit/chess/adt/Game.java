@@ -1,17 +1,23 @@
 package hit.chess.adt;
 
-import javax.swing.*;
-import java.awt.event.MouseListener;
+public interface Game {
+    /**
+     * 游戏初始化
+     */
+    public void initGame();
 
-/*
-    一盘棋类游戏
- */
-//JFrame是指一个计算机语言-java的GUI程序的基本思路是以JFrame为基础，
-// 它是屏幕上window的对象，能够最大化、最小化、关闭
-public abstract  class Game extends JFrame {
+    /**
+     * 进行游戏，是游戏主程序
+     */
+    public void playGame();
 
-    public static void  playChess(){
-        System.out.println("Play Chess is Begining ! ! !");
-    }
+    /**
+     * 结束游戏，并打印各玩家历史足迹
+     */
+    public void endGame();
 
+    /**
+     * 打印菜单
+     */
+    public void menu();
 }
